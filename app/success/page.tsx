@@ -2,10 +2,10 @@
 
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import confetti from "canvas-confetti";
 
-export default function OrderSuccessPage() {
+function SuccessContent() {
   const searchParams = useSearchParams();
   
   const orderNumber = searchParams.get("order") || "BTX3-00000000";
@@ -84,5 +84,13 @@ export default function OrderSuccessPage() {
 
       <p className="mt-12 text-xs text-[#6B5F54]">Questions? Reach us on WhatsApp at <span className="font-medium">+234 809 123 4567</span></p>
     </div>
+  );
+}
+
+export default function OrderSuccessPage() {
+  return (
+    <Suspense fallback={<div className="max-w-2xl mx-auto px-6 py-16 text-center">Loading order confirmation...</div>}>
+      <SuccessContent />
+    </Suspense>
   );
 }
