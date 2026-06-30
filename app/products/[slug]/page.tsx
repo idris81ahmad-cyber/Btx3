@@ -1,23 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Star, ShoppingCart, Heart } from "lucide-react";
 import { products } from "@/lib/products";
 import { useCartStore } from "@/lib/cart-store";
 import { toast } from "sonner";
+import { Product } from "@/types/product";
 
 interface ProductDetailPageProps {
   params: Promise<{ slug: string }>;
 }
 
 export default function ProductDetailPage({ params }: ProductDetailPageProps) {
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Handle async params in client component
-  React.useEffect(() => {
+  useEffect(() => {
     params.then(({ slug }) => {
       const found = products.find((p) => p.slug === slug);
       if (!found) {
@@ -30,13 +30,13 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   }, [params]);
 
   if (loading || !product) {
-    return <div className="max-w-7xl mx-auto px-6 py-20 text-center">Loading...</div>;
+    return <div className="max-w-7xl mx-auto px-6 py-20 text-center">Loading beautiful fabric details...</div>;
   }
 
   return <ProductDetailClient product={product} />;
 }
 
-function ProductDetailClient({ product }: { product: any }) {
+function ProductDetailClient({ product }: { product: Product }) {
   const [selectedLength, setSelectedLength] = useState(product.lengthOptions[0]);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -46,7 +46,7 @@ function ProductDetailClient({ product }: { product: any }) {
   const totalPrice = currentPrice * quantity;
 
   const relatedProducts = products
-    .filter((p: any) => p.category === product.category && p.id !== product.id)
+    .filter((p) => p.category === product.category && p.id !== product.id)
     .slice(0, 4);
 
   const handleAddToCart = () => {
@@ -82,7 +82,7 @@ function ProductDetailClient({ product }: { product: any }) {
           </div>
 
           <div className="flex gap-3 mt-4">
-            {product.images.map((img: string, idx: number) => (
+            {product.images.map((img, idx) => (
               <button
                 key={idx}
                 onClick={() => setSelectedImageIndex(idx)}
@@ -125,7 +125,7 @@ function ProductDetailClient({ product }: { product: any }) {
           <div className="mb-8">
             <div className="text-xs tracking-[2px] text-[#6B5F54] mb-3">SELECT LENGTH</div>
             <div className="flex flex-wrap gap-3">
-              {product.lengthOptions.map((length: string) => (
+              {product.lengthOptions.map((length) => (
                 <button
                   key={length}
                   onClick={() => setSelectedLength(length)}
@@ -206,7 +206,7 @@ function ProductDetailClient({ product }: { product: any }) {
             <Link href="/shop" className="text-sm hover:underline">Browse more →</Link>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {relatedProducts.map((related: any) => (
+            {relatedProducts.map((related) => (
               <Link key={related.id} href={`/products/${related.slug}`} className="group">
                 <div className="aspect-[4/3] rounded-3xl overflow-hidden border border-[#D4C9B8] mb-4">
                   <img src={related.images[0]} alt="" className="w-full h-full object-cover group-hover:scale-105 transition" />

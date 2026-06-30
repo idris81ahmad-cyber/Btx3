@@ -19,7 +19,7 @@ export default function ContactPage() {
     resolver: zodResolver(contactSchema),
   });
 
-  const onSubmit = async (formData: ContactForm) => {
+  const onSubmit = async (_formData: ContactForm) => {
     await new Promise(r => setTimeout(r, 900));
     toast.success("Message received!", {
       description: "Thank you. Our team will respond within 24 hours.",

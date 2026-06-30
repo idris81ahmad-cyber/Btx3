@@ -56,7 +56,7 @@ export default function CheckoutPage() {
     return null;
   }
 
-  const onSubmit = async (data: CheckoutForm) => {
+  const onSubmit = async (_data: CheckoutForm) => {
     setIsProcessing(true);
     await new Promise((resolve) => setTimeout(resolve, 1650));
     const orderNumber = "BTX3-" + Date.now().toString().slice(-8);
