@@ -97,7 +97,7 @@ export default function ShopPage() {
 
           <select 
             value={sortBy} 
-            onChange={(e) => setSortBy(e.target.value as any)}
+            onChange={(e) => setSortBy(e.target.value as "featured" | "price-low" | "price-high" | "rating")}
             className="bg-white border border-[#D4C9B8] rounded-2xl px-5 py-2.5 text-sm focus:outline-none focus:border-[#C5A46E]"
           >
             <option value="featured">Sort: Featured</option>
