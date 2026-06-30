@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
 import { products, categories, colorFamilies, patternStyles } from "@/lib/products";
 import { Filter, X } from "lucide-react";
 
-export default function ShopPage() {
+function ShopContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category") || "All Categories";
 
@@ -217,5 +217,13 @@ export default function ShopPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ShopPage() {
+  return (
+    <Suspense fallback={<div className="max-w-7xl mx-auto px-6 py-20 text-center">Loading shop...</div>}>
+      <ShopContent />
+    </Suspense>
   );
 }
