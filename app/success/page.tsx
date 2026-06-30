@@ -1,13 +1,12 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useEffect } from "react";
 import confetti from "canvas-confetti";
 
 export default function OrderSuccessPage() {
   const searchParams = useSearchParams();
-  const router = useRouter();
   
   const orderNumber = searchParams.get("order") || "BTX3-00000000";
   const total = searchParams.get("total") || "0";

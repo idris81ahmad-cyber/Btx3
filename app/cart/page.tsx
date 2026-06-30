@@ -42,7 +42,7 @@ export default function CartPage() {
 
       <div className="grid lg:grid-cols-12 gap-8">
         <div className="lg:col-span-7 space-y-5">
-          {items.map((item, index) => {
+          {items.map((item) => {
             const itemTotal = item.currentPrice * item.quantity;
             return (
               <div key={`${item.id}-${item.selectedLength}`} className="bg-white border border-[#D4C9B8] rounded-3xl p-6 flex gap-6">
