@@ -1,26 +1,21 @@
 export interface Product {
-  id: string;
+  id: number;
   slug: string;
   name: string;
-  shortDescription: string;
-  description: string;
+  category: string;
   price: number;
   salePrice?: number;
-  category: string;
-  material: string;
-  width: string;
-  lengthOptions: string[];
+  images: string[];
   rating: number;
   reviewCount: number;
+  shortDescription: string;
+  description: string;
   inStock: number;
-  specifications: Record<string, string>;
-  images: string[];
   colorFamily: string;
   patternStyle: string;
-}
-
-export interface CartItem extends Product {
-  selectedLength: string;
-  quantity: number;
-  currentPrice: number;
+  lengthOptions: string[];
+  specifications: Record<string, string>;
+  // Optional fields for extended data
+  material?: string;
+  width?: string;
 }
