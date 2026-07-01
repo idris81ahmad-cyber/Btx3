@@ -19,3 +19,9 @@ export interface Product {
   material?: string;
   width?: string;
 }
+
+export interface CartItem extends Product {
+  quantity: number;
+  selectedLength: string;
+  currentPrice: number;
+}
